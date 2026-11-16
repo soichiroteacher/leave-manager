@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // タブ切り替え
   document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+    btn.addEventListener("click", () => { switchTab(btn.dataset.tab); fitTopScrollbars(); });
   });
 
   // 年度セレクタ
@@ -89,4 +89,44 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.value = "";
   });
   document.getElementById("btn-reset").addEventListener("click", resetAllData);
+
+  addTopScrollbars();
 });
+
+// 表の上にも横スクロールバーを付ける(下のスクロールバーと連動させる)。
+// 表の一番下まで縦にスクロールしないと横に動かせない、ということがないようにするため。
+// 表の上に「表と同じ幅の中身を持つ空の枠」を置き、互いの scrollLeft を合わせている。
+function addTopScrollbars() {
+  document.querySelectorAll(".table-wrap").forEach(wrap => {
+    const top = document.createElement("div");
+    top.className = "top-scroll";
+    const inner = document.createElement("div");
+    top.appendChild(inner);
+    wrap.parentNode.insertBefore(top, wrap);
+
+    // 値が同じなら代入しない(互いの scroll イベントで行ったり来たりしないように)
+    top.addEventListener("scroll", () => {
+      if (wrap.scrollLeft !== top.scrollLeft) wrap.scrollLeft = top.scrollLeft;
+    });
+    wrap.addEventListener("scroll", () => {
+      if (top.scrollLeft !== wrap.scrollLeft) top.scrollLeft = wrap.scrollLeft;
+    });
+
+    // 表の幅が変わったら(行の追加・画面の大きさの変更・タブの切り替え)合わせ直す
+    const fit = () => {
+      inner.style.width = wrap.scrollWidth + "px";
+      top.classList.toggle("hidden", wrap.scrollWidth <= wrap.clientWidth + 1);
+    };
+    const ro = new ResizeObserver(fit);
+    ro.observe(wrap);
+    const table = wrap.querySelector("table");
+    if (table) ro.observe(table);
+    topScrollFits.push(fit);
+    fit();
+  });
+}
+const topScrollFits = [];
+// 念のため、タブを切り替えたときにも合わせ直す(隠れていた表は幅が 0 で計算されているため)
+function fitTopScrollbars() {
+  requestAnimationFrame(() => topScrollFits.forEach(fit => fit()));
+}

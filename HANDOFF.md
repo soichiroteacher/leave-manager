@@ -32,7 +32,7 @@
 - [js/calc.js](js/calc.js): 年度判定・残高計算・表示形式(純粋関数中心)
 - [js/storage.js](js/storage.js): 初期データ、localStorage、旧データの移行、エクスポート
 - [js/ui.js](js/ui.js): 画面の描画とイベント処理
-- [js/main.js](js/main.js): 初期化とイベント配線
+- [js/main.js](js/main.js): 初期化とイベント配線。表の上の横スクロールバー(addTopScrollbars。.table-wrap ごとに上へ空の枠を置き scrollLeft を連動)もここ。見出しの固定は css/style.css の .table-wrap(枠に max-height を付けて枠の中でスクロールさせ、thead th と左端の列を sticky にしている)。表の上の横スクロールバー(addTopScrollbars。.table-wrap ごとに上へ空の枠を置き scrollLeft を連動)もここ。見出しの固定は css/style.css の .table-wrap(枠に max-height を付けて枠の中でスクロールさせ、thead th と左端の列を sticky にしている)
 - [scripts/bump-version.sh](scripts/bump-version.sh): `?v=` の更新
 
 ## 3. 次にやること(優先度順)
