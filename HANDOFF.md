@@ -2,7 +2,7 @@
 
 最終更新: 2026-09-27
 
-新しいセッションで作業を始めるときは、まずこのファイルと [README.md](README.md)(先生向け)を読むこと。全アプリ共通のルールは `../CLAUDE.md`、変更の記録は [CHANGELOG.md](CHANGELOG.md)。
+新しいセッションで作業を始めるときは、まずこのファイルと [README.md](README.md)(先生向け)を読むこと。全アプリ共通のルールは `../CLAUDE.md`、変更の記録は [CHANGELOG.md](CHANGELOG.md)。Claude Code を使わずに手で直すときは [自分で直すとき.md](自分で直すとき.md)。
 
 **使う場所(2026-09-27 決定)**: 先生方は校務共有サーバーに置いた `index.html` を Chrome / Edge で開いて使う。GitHub Pages の公開URLは開発・確認用として残っている。
 
